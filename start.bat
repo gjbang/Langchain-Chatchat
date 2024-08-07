@@ -18,3 +18,9 @@ if not exist basic_settings.yaml (
 
 @REM step4 start the chat chat server on the background, and output the log to the log file with timestamp
 start /B python chatchat/cli.py start -a > ../../logs/chat_chat_server_%date:~10,4%%date:~4,2%%date:~7,2%.log
+
+
+
+@REM python chatchat/cli.py kb --recreate-vs
+@REM python chatchat/cli.py start -a
+

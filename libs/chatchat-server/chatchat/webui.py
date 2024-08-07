@@ -3,7 +3,7 @@ import sys
 import streamlit as st
 import streamlit_antd_components as sac
 
-from chatchat import __version__
+from chatchat import __version__, __DTVersion__
 from chatchat.server.utils import api_address
 from chatchat.webui_pages.dialogue.dialogue import  dialogue_page
 from chatchat.webui_pages.kb_chat import kb_chat
@@ -20,9 +20,12 @@ if __name__ == "__main__":
         get_img_base64("chatchat_icon_blue_square_v2.png"),
         initial_sidebar_state="expanded",
         menu_items={
-            "Get Help": "https://github.com/chatchat-space/Langchain-Chatchat",
+            "Get Help": "https://github.com/gjbang/Langchain-Chatchat",
             "Report a bug": "https://github.com/chatchat-space/Langchain-Chatchat/issues",
-            "About": f"""欢迎使用 Langchain-Chatchat WebUI {__version__}！""",
+            "About": f"""
+                欢迎使用 核电厂通信设备处置检索 WebUI {__DTVersion__}！ \\
+                本项目基于Langchain-Chatchat轻微调整后开发部署
+                    """,
         },
         layout="centered",
     )
@@ -46,10 +49,11 @@ if __name__ == "__main__":
 
     with st.sidebar:
         st.image(
-            get_img_base64("logo-long-chatchat-trans-v2.png"), use_column_width=True
+            get_img_base64("spic.png") , use_column_width="auto"
+            # get_img_base64("logo-long-chatchat-trans-v2.png"), use_column_width=True
         )
         st.caption(
-            f"""<p align="right">当前版本：{__version__}</p>""",
+            f"""<p align="right">当前版本：{__DTVersion__}</p>""",
             unsafe_allow_html=True,
         )
 
@@ -65,6 +69,7 @@ if __name__ == "__main__":
 
         sac.divider()
 
+    # change the function pages
     if selected_page == "知识库管理":
         knowledge_base_page(api=api, is_lite=is_lite)
     elif selected_page == "RAG 对话":

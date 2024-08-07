@@ -68,6 +68,7 @@ def knowledge_base_page(api: ApiRequest, is_lite: bool = None):
             "获取知识库信息错误，请检查是否已按照 `README.md` 中 `4 知识库初始化与迁移` 步骤完成初始化或迁移，或是否为数据库连接错误。"
         )
         st.stop()
+    # get existing kb, which are managed by chatchat core libs
     kb_names = list(kb_list.keys())
 
     if (
@@ -89,13 +90,17 @@ def knowledge_base_page(api: ApiRequest, is_lite: bool = None):
 
     selected_kb = st.selectbox(
         "请选择或新建知识库：",
+        # produce kb list in menus
         kb_names + ["新建知识库"],
         format_func=format_selected_kb,
         index=selected_kb_index,
     )
 
+    # refresh the page to create kb
     if selected_kb == "新建知识库":
+        # page format is a new form
         with st.form("新建知识库"):
+            # this method can return a str obj
             kb_name = st.text_input(
                 "新建知识库名称",
                 placeholder="新知识库名称，不支持中文命名",
@@ -149,6 +154,7 @@ def knowledge_base_page(api: ApiRequest, is_lite: bool = None):
                 st.session_state["selected_kb_info"] = kb_info
                 st.rerun()
 
+    # edit the existing kb and do more operations
     elif selected_kb:
         kb = selected_kb
         st.session_state["selected_kb_info"] = kb_list[kb]["kb_info"]
